@@ -1,0 +1,4 @@
+class TooManyCardsException
+	
+
+end
