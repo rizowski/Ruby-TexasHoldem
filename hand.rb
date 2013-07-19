@@ -1,18 +1,13 @@
 class Hand
 	attr_accessor :cards
 
-	def initialize
-
-	end
-
-	def cards card_values
-		raise TooManyCardsException if card_values > 5
-		
+	def initialize cards
+		@cards = cards
 	end
 
 	#prints all the cards in the hand
-	def get_cards
-
+	def cards_value
+		
 	end
 
 end
