@@ -19,6 +19,13 @@ class Game
 			players << Player.new(hand)
 		end
 		@house_cards = @deck.get_dealt_cards
+		players.each_entry do |player|
+		  someString = ""
+		  evaluate_hand(player).each_entry do |card|
+		    someString += " #{card}"
+		  end  
+	    puts someString		  
+		end
 	end
 
 	def play
@@ -31,6 +38,7 @@ class Game
 	end
 
 	def evaluate_hand player
+	  temp_hand = []
 		temp_hand << @house_cards
 		temp_hand << player.hand.cards
 		temp_hand.flatten!
@@ -38,8 +46,13 @@ class Game
 		combinations = temp_hand.combination(5).to_a
 
 		high_hand_value = 0
+		high_hand = combinations.first
 		combinations.each do |cards|
-
+      value_of_hand = find_point_value(cards)
+      if value_of_hand > high_hand_value
+        high_hand_value = value_of_hand
+        high_hand = cards
+      end
 		end
 	end
 
@@ -87,9 +100,6 @@ class Game
 end
 
 g = Game.new
-
-g.start
-puts g.find_point_value [Card.new("D",1),Card.new("C",12),Card.new("C",4),Card.new("C",3),Card.new("C",5)]
 
 # 2,2 #two of a kind
 # 22, 33 #2pair
