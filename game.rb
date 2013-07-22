@@ -3,7 +3,7 @@ require_relative 'hand'
 require_relative 'player'
 class Game
 	attr_accessor :players
-	attr_reader :winner, :deck, :house_cards, :player_count
+	attr_reader :winner, :deck, :house_cards, :player_count, :winner_slot
 
 	def initialize
 		@deck = Deck.new
@@ -13,7 +13,7 @@ class Game
 	# sets up players
 	def start
 		players = []
-		@player_count = Random.rand(8)
+		@player_count = (2..10).to_a.sample
 		@player_count.times do |count|
 			hand = Hand.new @deck.get_pocket_cards
 			players << Player.new(hand)
@@ -22,12 +22,27 @@ class Game
 		players.each_with_index do |player, index|
 			puts "player #{index+1}"
 			someString = ""
-			evaluate_hand(player).each do |card|
-				someString += " #{card}"
-
-			end  
+			unless Random.rand(4) == 1
+				evaluate_hand(player).each do |card|
+					someString += " #{card}"
+				end
+			else
+				player.hand.value = -1
+				someString += "#{player.hand.to_s} (Fold)"
+			end
 	    	puts someString		  
 		end
+		@winner = players.first
+		players.each_with_index do |player, index|
+			@winner_slot = "#{index+1}"
+			if @winner.hand.value > player.hand.value
+				slot = index
+				@winner = player
+				@winner_slot = index+1
+			end
+			
+		end
+		puts "Winner is Player #{@winner_slot}"
 	end
 
 	#private
@@ -39,8 +54,8 @@ class Game
 	  temp_hand = []
 		temp_hand << @house_cards
 		temp_hand << player.hand.cards
-		temp_hand.flatten!
-
+		temp_hand.flatten! 
+		player.hand.value = 0
 		combinations = temp_hand.combination(5)
 		high_hand_value = 0
 		high_hand = combinations.first
@@ -49,7 +64,7 @@ class Game
 	      if value_of_hand > high_hand_value
 	        high_hand_value = value_of_hand
 	        high_hand = cards
-	        player.hand.value = value_of_hand
+	        player.hand.value = high_hand_value
 	      end
 		end
 		high_hand

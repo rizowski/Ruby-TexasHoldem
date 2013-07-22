@@ -10,4 +10,12 @@ class Hand
 		
 	end
 
+	def to_s
+		some_string = ""
+		@cards.each do |card|
+			some_string += " #{card}"
+		end 
+		some_string
+	end
+
 end
