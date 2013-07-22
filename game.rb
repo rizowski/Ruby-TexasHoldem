@@ -19,12 +19,14 @@ class Game
 			players << Player.new(hand)
 		end
 		@house_cards = @deck.get_dealt_cards
-		players.each_entry do |player|
+		players.each_with_index do |player, index|
+			puts "player #{index+1}" ####### Counting the players
 		  someString = ""
-		  evaluate_hand(player).each_entry do |card|
-		    someString += " #{card}"
-		  end  
-	    puts someString		  
+		  evaluate_hand(player).to_s#.each_entry do |card|
+		  	
+		  #   someString += " #{card}"
+		  # end  
+	    #puts someString		  
 		end
 	end
 
@@ -43,16 +45,16 @@ class Game
 		temp_hand << player.hand.cards
 		temp_hand.flatten!
 
-		combinations = temp_hand.combination(5).to_a
-
+		combinations = temp_hand.combination(5)
 		high_hand_value = 0
 		high_hand = combinations.first
 		combinations.each do |cards|
-      value_of_hand = find_point_value(cards)
-      if value_of_hand > high_hand_value
-        high_hand_value = value_of_hand
-        high_hand = cards
-      end
+	      value_of_hand = find_point_value(cards)
+	      if value_of_hand > high_hand_value
+	        high_hand_value = value_of_hand
+	        puts cards.count ###### Counting the cards here
+	        high_hand = cards
+	      end
 		end
 	end
 
