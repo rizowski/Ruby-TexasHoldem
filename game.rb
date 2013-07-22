@@ -20,18 +20,14 @@ class Game
 		end
 		@house_cards = @deck.get_dealt_cards
 		players.each_with_index do |player, index|
-			puts "player #{index+1}" ####### Counting the players
-		  someString = ""
-		  evaluate_hand(player).to_s#.each_entry do |card|
-		  	
-		  #   someString += " #{card}"
-		  # end  
-	    #puts someString		  
+			puts "player #{index+1}"
+			someString = ""
+			evaluate_hand(player).each do |card|
+				someString += " #{card}"
+
+			end  
+	    	puts someString		  
 		end
-	end
-
-	def play
-
 	end
 
 	#private
@@ -52,10 +48,11 @@ class Game
 	      value_of_hand = find_point_value(cards)
 	      if value_of_hand > high_hand_value
 	        high_hand_value = value_of_hand
-	        puts cards.count ###### Counting the cards here
 	        high_hand = cards
+	        player.hand.value = value_of_hand
 	      end
 		end
+		high_hand
 	end
 
 	def find_point_value cards

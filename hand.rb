@@ -1,5 +1,5 @@
 class Hand
-	attr_accessor :cards
+	attr_accessor :cards, :value
 
 	def initialize cards
 		@cards = cards
