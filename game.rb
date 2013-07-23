@@ -89,21 +89,21 @@ class Game
 		duplicate_count = count_duplicates game_cards
 
 		if suit_match && straight
-			return 10 + high_card.value
+			return 112 + high_card.value
 		elsif duplicate_count.include?(4)
-			return 9 + high_card.value
+			return 98 + high_card.value
 		elsif duplicate_count.include?(3) && duplicate_count.include?(2)
-			return 8 + high_card.value
+			return 84 + high_card.value
 		elsif suit_match
-			return 7 + high_card.value
+			return 70 + high_card.value
 		elsif straight
-			return 6 + high_card.value
+			return 56 + high_card.value
 		elsif duplicate_count.include?(3)
-			return 5 + high_card.value
-		elsif duplicate_count.include?(2) && duplicate_count.include?(3)
-			return 4 + high_card.value
+			return 42 + high_card.value
+		elsif duplicate_count.include?(2) && duplicate_count.select{|num| num == 2}.length() == 2
+			return 28 + high_card.value
 		elsif duplicate_count.include?(2)
-			return 3 + high_card.value
+			return 14 + high_card.value
 		else
 			return high_card.value
 		end		
