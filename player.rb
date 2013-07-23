@@ -1,7 +1,9 @@
 class Player
-	attr_accessor :hand
+	attr_accessor :hand, :fold, :name
 
-	def initialize hand
+	def initialize name, hand
+		@name = name
 		@hand = hand
+		@fold = false
 	end
 end

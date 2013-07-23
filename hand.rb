@@ -5,11 +5,6 @@ class Hand
 		@cards = cards
 	end
 
-	#prints all the cards in the hand
-	def cards_value
-		
-	end
-
 	def to_s
 		some_string = ""
 		@cards.each do |card|
@@ -17,5 +12,6 @@ class Hand
 		end 
 		some_string
 	end
+
 
 end
